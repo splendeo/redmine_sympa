@@ -17,17 +17,19 @@ module RedmineSympa
       end
         
       module InstanceMethods
+        def is_a_sympa_module?
+          return (self.name == 'sympa_mailing_list' ? true : false)
+        end
+      
         def sympa_enable_module
           self.reload
-          logger.warn("[REDMINE_SYMPA] #{self.project.identifier}.#{self.name} module enabled")
-          if(self.name == 'sympa_mailing_list')
+          if(self.is_a_sympa_module?)
             logger.warn("[REDMINE_SYMPA] Project #{self.project.identifier} needs a new mailing list")
           end
         end
         
         def sympa_disable_module
-          logger.warn("[REDMINE_SYMPA] #{self.project.identifier}.#{self.name} module disabled")
-          if(self.name_was == 'sympa_mailing_list')
+          if(self.is_a_sympa_module?)
             logger.warn("[REDMINE_SYMPA] Project #{self.project.identifier} doesn't need a mailing list any more")
           end
         end
