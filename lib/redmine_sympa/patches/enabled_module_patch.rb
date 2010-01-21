@@ -5,7 +5,7 @@ module RedmineSympa
         base.send(:include, InstanceMethods)
         base.extend(ClassMethods)
         base.class_eval do
-          #unloadable # Send unloadable so it will not be unloaded in development
+          unloadable # Send unloadable so it will not be unloaded in development
 
           after_create :sympa_enable_module
           before_destroy :sympa_disable_module
@@ -18,6 +18,7 @@ module RedmineSympa
         
       module InstanceMethods
         def sympa_enable_module
+          self.reload
           logger.warn("[REDMINE_SYMPA] #{self.project.identifier}.#{self.name} module enabled")
           if(self.name == 'sympa_mailing_list')
             logger.warn("[REDMINE_SYMPA] Project #{self.project.identifier} needs a new mailing list")
