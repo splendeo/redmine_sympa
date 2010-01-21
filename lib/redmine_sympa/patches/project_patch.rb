@@ -7,9 +7,11 @@ module RedmineSympa
         base.class_eval do
           unloadable # Send unloadable so it will not be unloaded in development
 
-          #alias_method :old_enabled_module_names=, :enabled_module_names=
+          # This replaces the existing version of enabled_module_names with a new one
+          # It is needed because we need the "destroy" callbacks to be fired,
+          # and only on the erased modules (not all of them - the default implementation
+          # starts by wiping them out - v0.8)
           alias_method :enabled_module_names=, :sympa_enabled_module_names=
-
 
           after_save :update_sympa_mailing_list
           after_destroy :destroy_sympa_mailing_list
@@ -20,6 +22,9 @@ module RedmineSympa
       end
         
       module InstanceMethods
+        def has_sympa_mailing_list?
+          return self.module_enabled?(:sympa_mailing_list)
+        end
 
         # Redefine enabled_module_names so it invokes mod.destroy on disconnected modules
         def sympa_enabled_module_names=(module_names)
@@ -29,13 +34,8 @@ module RedmineSympa
           # remove disabled modules
           enabled_modules.each {|mod| mod.destroy unless module_names.include?(mod.name)}
           
-          # detect the modules that are new
-          new_module_names = module_names.reject {|name| module_enabled?(name)}
-          
-          logger.warn("[REDMINE_SYMPA] Project #{self.identifier} new modules: #{new_module_names}")
-          
-          # create the new modules only
-          new_module_names.each {|name| enabled_modules << EnabledModule.new(:name => name) }
+          # detect the modules that are new, and create those only
+          module_names.reject {|name| module_enabled?(name)}.each {|name| enabled_modules << EnabledModule.new(:name => name) }
         end
 
         # This should log something when the project is saved

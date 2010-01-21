@@ -8,20 +8,21 @@ require 'dispatcher'
 Dispatcher.to_prepare :redmine_sympa do
   require_dependency 'project'
   require_dependency 'enabled_module'
-  
+  require_dependency 'user'
+  require_dependency 'member'
+
   Project.send(:include, RedmineSympa::Patches::ProjectPatch)
   EnabledModule.send(:include, RedmineSympa::Patches::EnabledModulePatch)
-  
-  # Remove the load the observer so it's registered for each request.
-  #ActiveRecord::Base.observers.delete(:project_join_request_observer)
-  #ActiveRecord::Base.observers << :project_join_request_observer
+  User.send(:include, RedmineSympa::Patches::UserPatch)
+  Member.send(:include, RedmineSympa::Patches::Member)
+
 end
 
 Redmine::Plugin.register :redmine_sympa do
   name 'Redmine Sympa plugin'
   author 'Enrique García Cota'
   description 'Integrates Redmine with Sympa mailing lists.'
-  version '0.0.1'
+  version '0.0.2'
 
   #project_module ensures that only the projects that have them 'active' will show them 
   project_module :sympa_mailing_list do
