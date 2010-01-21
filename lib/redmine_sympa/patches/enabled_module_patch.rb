@@ -24,7 +24,7 @@ module RedmineSympa
         def sympa_enable_module
           self.reload
           if(self.is_a_sympa_module?)
-            logger.warn("[REDMINE_SYMPA] Project #{self.project.identifier} needs a new mailing list")
+            logger.warn("[REDMINE_SYMPA] Project #{self.project.identifier} needs a new mailing list. We must registers all its users, too.")
           end
         end
         

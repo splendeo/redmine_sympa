@@ -14,7 +14,7 @@ Dispatcher.to_prepare :redmine_sympa do
   Project.send(:include, RedmineSympa::Patches::ProjectPatch)
   EnabledModule.send(:include, RedmineSympa::Patches::EnabledModulePatch)
   User.send(:include, RedmineSympa::Patches::UserPatch)
-  Member.send(:include, RedmineSympa::Patches::Member)
+  Member.send(:include, RedmineSympa::Patches::MemberPatch)
 
 end
 
