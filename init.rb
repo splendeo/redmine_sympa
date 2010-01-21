@@ -5,10 +5,12 @@ require 'redmine'
 #require 'join_project/hooks/my_hooks'
  
 require 'dispatcher'
-Dispatcher.to_prepare :redmine_sympa_project do
+Dispatcher.to_prepare :redmine_sympa do
   require_dependency 'project'
+  require_dependency 'enabled_module'
   
   Project.send(:include, RedmineSympa::Patches::ProjectPatch)
+  EnabledModule.send(:include, RedmineSympa::Patches::EnabledModulePatch)
   
   # Remove the load the observer so it's registered for each request.
   #ActiveRecord::Base.observers.delete(:project_join_request_observer)
