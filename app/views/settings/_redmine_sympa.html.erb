@@ -1,0 +1,36 @@
+<fieldset>
+  <%= content_tag(:legend, l(:redmine_sympa_text_settings_configuration)) %>
+
+  <%= content_tag(:p, l(:redmine_sympa_settings_help)) %>
+
+  <p>
+    <%= content_tag(:label, l(:redmine_sympa_setting_roles)) %>
+ 
+    <%-
+      roles = Role.all(:order => "position ASC")
+      selected = @settings['redmine_sympa_roles'].collect(&:to_i) unless @settings['redmine_sympa_roles'].blank?
+      selected ||= []
+    -%>
+ 
+    <% unless roles.empty? %>
+    <%=
+      select_tag("settings[redmine_sympa_roles]",
+                 content_tag(:option, '') + options_from_collection_for_select(roles, :id, :name, selected ),
+                 :multiple => true,
+                 :size => 5)
+    %>
+    <% else %>
+      <%= link_to(l(:join_project_missing_roles), :controller => 'roles', :action => 'index') %>
+   <% end %>
+  </p>
+
+  <p>
+    <%= content_tag(:label, l(:redmine_sympa_setting_domain)) %>
+    <%= text_field_tag("settings[redmine_sympa_domain]", @settings['redmine_sympa_domain'], :size=>60 ) %>
+  </p>
+
+  <p>
+    <%= content_tag(:label, l(:redmine_sympa_setting_path)) %>
+    <%= text_field_tag("settings[redmine_sympa_path]", @settings['redmine_sympa_path'], :size=>60 ) %>
+  </p>
+</fieldset>

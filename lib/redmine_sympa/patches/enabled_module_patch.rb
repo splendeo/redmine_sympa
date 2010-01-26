@@ -1,3 +1,5 @@
+require 'redmine_sympa/call_rake'
+
 module RedmineSympa
   module Patches
     module EnabledModulePatch
@@ -25,6 +27,7 @@ module RedmineSympa
           self.reload
           if(self.is_a_sympa_module?)
             logger.warn("[REDMINE_SYMPA] Project #{self.project.identifier} needs a new mailing list. We must registers all its users, too.")
+            RedmineSympa::CallRake.call_rake('redmine_sympa:create_list', :PROJECT_ID => project_id)
           end
         end
         

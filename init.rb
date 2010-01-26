@@ -22,7 +22,17 @@ Redmine::Plugin.register :redmine_sympa do
   name 'Redmine Sympa plugin'
   author 'Enrique García Cota'
   description 'Integrates Redmine with Sympa mailing lists.'
-  version '0.0.2'
+  version '0.0.3'
+
+  settings({
+    :partial => 'settings/redmine_sympa',
+    :default => {
+      'redmine_sympa_roles' => [],
+      'redmine_sympa_domain' => 'yourdomain.com',
+      'redmine_sympa_path' => '/usr/lib/sympa/bin/sympa.pl'
+    }
+  })
+  
 
   #project_module ensures that only the projects that have them 'active' will show them 
   project_module :sympa_mailing_list do

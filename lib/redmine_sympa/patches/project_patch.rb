@@ -47,6 +47,33 @@ module RedmineSympa
         def destroy_sympa_mailing_list
           logger.warn("[REDMINE_SYMPA] Project #{self.identifier} deleted")
         end
+        
+        def sympa_admin_emails
+          roles = Setting.plugin_redmine_sympa['redmine_sympa_roles'].split(',').collect{|r| r.to_i}
+          emails= members.all(:conditions => ['role_id IN (?)', roles]).collect{|m| m.user.mail}
+          emails.push(User.find_by_admin(true).mail)
+          return emails
+        end
+        
+        # returns the xml needed for defining a mailing list
+        def sympa_mailing_list_xml_def
+
+          owners = sympa_admin_emails.collect{|m| "<owner multiple='1'><email>#{m}</email></owner>"}
+
+          return "
+            <?xml version='1.0' ?>
+            <list>
+              <listname>#{identifier}</listname>
+              <type>discussion_list</type>
+              <subject>#{name}</subject>
+              <description>#{description}</description>
+              <status>open</status>
+              <language>en_US</language>
+              <topic>Computing</topic>
+              #{owners.join(' ')}
+            </list>"
+          
+        end
       end
     end
   end
