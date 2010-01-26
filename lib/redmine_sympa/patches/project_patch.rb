@@ -41,11 +41,11 @@ module RedmineSympa
         # This should log something when the project is saved
         def update_sympa_mailing_list
           self.reload
-          logger.warn("[REDMINE_SYMPA] Project #{self.identifier} updated")
+          RedmineSympa::SympaLogger.info("Project: Project #{self.identifier} updated")
         end
 
         def destroy_sympa_mailing_list
-          logger.warn("[REDMINE_SYMPA] Project #{self.identifier} deleted")
+          RedmineSympa::SympaLogger.info("Project: Project #{self.identifier} deleted")
         end
         
         def sympa_admin_emails

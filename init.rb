@@ -30,7 +30,7 @@ Redmine::Plugin.register :redmine_sympa do
       'redmine_sympa_roles' => [],
       'redmine_sympa_domain' => 'yourdomain.com',
       'redmine_sympa_path' => '/usr/lib/sympa/bin/sympa.pl',
-      'redmine_sympa_rake_path' => '/usr/local/bin/rake'
+      'redmine_sympa_log' => "#{Rails.root}/log/sympa.log"
     }
   })
   

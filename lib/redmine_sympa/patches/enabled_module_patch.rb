@@ -1,4 +1,4 @@
-require 'redmine_sympa/call_rake'
+require 'redmine_sympa/actions'
 
 module RedmineSympa
   module Patches
@@ -26,15 +26,15 @@ module RedmineSympa
         def sympa_enable_module
           self.reload
           if(self.is_a_sympa_module?)
-            logger.warn("[REDMINE_SYMPA] Project #{self.project.identifier} needs a new mailing list. We must registers all its users, too.")
-            RedmineSympa::CallRake.call_rake('redmine_sympa:create_list', :PROJECT_ID => project_id)
+            RedmineSympa::SympaLogger.info("EnabledModule: Project #{self.project.identifier} needs a new mailing list. We must registers all its users, too.")
+            RedmineSympa::Actions.create_list(project)
           end
         end
         
         def sympa_disable_module
           if(self.is_a_sympa_module?)
-            logger.warn("[REDMINE_SYMPA] Project #{self.project.identifier} doesn't need a mailing list any more")
-            RedmineSympa::CallRake.call_rake('redmine_sympa:destroy_list', :PROJECT_ID => project_id)
+            RedmineSympa::SympaLogger.info("EnabledModule: Project #{self.project.identifier} doesn't need a mailing list any more")
+            RedmineSympa::Actions.destroy_list(project)
           end
         end
       end

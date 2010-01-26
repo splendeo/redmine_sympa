@@ -21,12 +21,12 @@ module RedmineSympa
           self.reload
           # update mailing lists if password is reset
           if(self.password)
-            logger.warn("[REDMINE_SYMPA] User #{self.name} has changed his password(now it is #{self.password}). It should be updated in all his mailing lists.")
+            RedmineSympa::SympaLogger.info("User: #{self.name} has changed his password(now it is #{self.password}). It should be updated in all his mailing lists.")
           end
         end
 
         def unregister_from_all_sympa_mailing_lists
-          logger.warn("[REDMINE_SYMPA] User #{self.name} should be unregistered from all his/her mailing lists.")
+          RedmineSympa::SympaLogger.info("User: #{self.name} should be unregistered from all his/her mailing lists.")
         end
       end
 
