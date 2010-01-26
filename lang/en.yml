@@ -1,8 +1,9 @@
 # English strings go here
 permission_view_mailing_lists: "View Mailing Lists"
 redmine_sympa_text_settings_configuration: "Configuration"
-redmine_sympa_settings_help: "Select which Role a Member should have in order to be able to manage Sympa lists. This is usually 'Manager'."
-redmine_sympa_setting_roles: "Manager roles"
+redmine_sympa_settings_help: "Select which Role a Member should have in order to be able to manage Sympa lists. This is usually 'Manager'. The domain name is the part after @ in yourlist@yourdomain.com. The other two settings are required executable paths."
+redmine_sympa_setting_roles: "Manager role"
 redmine_sympa_missing_roles: "Add new roles"
-redmine_sympa_setting_domain: "Enter the domain name of the lists being sent"
-redmine_sympa_setting_path: "Enter the path to the sympa.pl executable"
+redmine_sympa_setting_domain: "Domain name"
+redmine_sympa_setting_path: "Sympa.pl path"
+redmine_sympa_setting_rake_path: "rake path"

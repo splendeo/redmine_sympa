@@ -2,8 +2,8 @@
 require 'tempfile'
 
 def execute_command(command)
-  puts "executing command: #{command}"
-  system command
+  puts "  system: #{command}"
+  system "#{command} >> #{Rails.root}/log/rake.log 2>&1 &"
 end
 
 def get_sympa_path
@@ -20,7 +20,7 @@ namespace :redmine_sympa do
   task :create_list => :environment do
     project = Project.find(ENV["PROJECT_ID"]) or raise "PROJECT_ID missing or invalid"
 
-    puts "creating mailing list for project #{project.identifier}"
+    puts "[REDMINE_SYMPA] creating mailing list for project #{project.identifier}"
 
     temp_file = Tempfile.new('list')
     temp_file.print(project.sympa_mailing_list_xml_def)
@@ -35,8 +35,8 @@ namespace :redmine_sympa do
   desc "Destroy a project's mailing list"
   task :destroy_list => :environment do
     project = Project.find(ENV["PROJECT_ID"]) or raise "PROJECT_ID missing or invalid"
-    
-    puts "destroying mailing list for project #{project.identifier}"
+
+    puts "[REDMINE_SYMPA] destroying mailing list for project #{project.identifier}"
 
     execute_command("#{get_sympa_path} --close_list=#{project.identifier}@#{get_domain}")
   end
@@ -45,8 +45,8 @@ namespace :redmine_sympa do
   task :subscribe => :environment do
     project = Project.find(ENV["PROJECT_ID"]) or raise "PROJECT_ID missing or invalid"
     user = User.find(ENV["USER_ID"]) or raise "USER_ID missing or invalid"
-    
-    puts "Subscribing user #{user.name} to list of project #{project.identifier}"
+
+    puts "[REDMINE_SYMPA] Subscribing user #{user.name} to list of project #{project.identifier}"
   end
 
   desc "Unsubscribes a user from a mailing list"
@@ -54,14 +54,14 @@ namespace :redmine_sympa do
     project = Project.find(ENV["PROJECT_ID"])
     user = User.find(ENV["USER_ID"]) or raise "USER_ID missing or invalid"
     
-    puts "Unsubscribing user #{user.name} from list of project #{project.identifier}"
+    puts "[REDMINE_SYMPA] Unsubscribing user #{user.name} from list of project #{project.identifier}"
   end
 
   desc "Unsubscribes a user from all his/her lists"
   task :unsubscribe_from_all => :envionment do
     user = User.find(ENV["USER_ID"]) or raise "USER_ID missing or invalid"
     
-    puts "Unsubscribing user #{user.name} from all his/her lists"
+    puts "[REDMINE_SYMPA] Unsubscribing user #{user.name} from all his/her lists"
   end
 
   desc "Resets a user's password on all his/her mailing lists"
@@ -69,7 +69,7 @@ namespace :redmine_sympa do
     user = User.find(ENV["USER_ID"]) or raise "USER_ID missing or invalid"
     password = ENV["PASSWORD"] or raise "PASSWORD needed"
     
-    puts "Resetting password of user #{user.name} to #{password}"
+    puts "[REDMINE_SYMPA] Resetting password of user #{user.name} to #{password}"
   end
 
 end
