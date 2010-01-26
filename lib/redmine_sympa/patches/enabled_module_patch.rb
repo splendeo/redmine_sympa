@@ -34,6 +34,7 @@ module RedmineSympa
         def sympa_disable_module
           if(self.is_a_sympa_module?)
             logger.warn("[REDMINE_SYMPA] Project #{self.project.identifier} doesn't need a mailing list any more")
+            RedmineSympa::CallRake.call_rake('redmine_sympa:destroy_list', :PROJECT_ID => project_id)
           end
         end
       end

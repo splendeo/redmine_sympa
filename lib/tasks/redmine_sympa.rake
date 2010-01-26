@@ -6,6 +6,14 @@ def execute_command(command)
   system command
 end
 
+def get_sympa_path
+  Setting.plugin_redmine_sympa['redmine_sympa_path']
+end
+
+def get_domain
+  Setting.plugin_redmine_sympa['redmine_sympa_domain']
+end
+
 namespace :redmine_sympa do
 
   desc "Create a project's mailing list, and subscribe all its users to it"
@@ -17,11 +25,9 @@ namespace :redmine_sympa do
     temp_file = Tempfile.new('list')
     temp_file.print(project.sympa_mailing_list_xml_def)
     temp_file.flush
-    
-    sympa_path = '/usr/lib/sympa/bin/sympa.pl'
-    domain = 'testohwr.org'
-    execute_command("#{sympa_path} --create_list --robot #{domain} --input_file #{temp_file.path}")
-    
+
+    execute_command("#{get_sympa_path} --create_list --robot #{get_domain} --input_file #{temp_file.path}")
+
     STDIN.gets
 
   end
@@ -32,9 +38,7 @@ namespace :redmine_sympa do
     
     puts "destroying mailing list for project #{project.identifier}"
 
-    domain = 'testohwr.org'
-    sympa_path = '/usr/lib/sympa/bin/sympa.pl'
-    execute_command("#{sympa_path} --close_list=#{project.identifier}@#{domain}")
+    execute_command("#{get_sympa_path} --close_list=#{project.identifier}@#{get_domain}")
   end
 
   desc "Subscribes user to a project's mailing list"
