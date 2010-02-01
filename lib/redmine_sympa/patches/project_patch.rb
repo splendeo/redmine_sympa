@@ -13,8 +13,6 @@ module RedmineSympa
           # starts by wiping them out - v0.8)
           alias_method :enabled_module_names=, :sympa_enabled_module_names=
 
-          after_save :update_sympa_mailing_list
-          after_destroy :destroy_sympa_mailing_list
         end
       end
 
@@ -28,7 +26,6 @@ module RedmineSympa
 
         # Redefine enabled_module_names so it invokes mod.destroy on disconnected modules
         def sympa_enabled_module_names=(module_names)
-
           module_names = [] unless module_names and module_names.is_a?(Array)
           module_names = module_names.collect(&:to_s)
           # remove disabled modules
@@ -38,16 +35,6 @@ module RedmineSympa
           module_names.reject {|name| module_enabled?(name)}.each {|name| enabled_modules << EnabledModule.new(:name => name) }
         end
 
-        # This should log something when the project is saved
-        def update_sympa_mailing_list
-          self.reload
-          RedmineSympa::SympaLogger.info("Project: Project #{self.identifier} updated")
-        end
-
-        def destroy_sympa_mailing_list
-          RedmineSympa::SympaLogger.info("Project: Project #{self.identifier} deleted")
-        end
-        
         def sympa_admin_emails
           roles = Setting.plugin_redmine_sympa['redmine_sympa_roles'].split(',').collect{|r| r.to_i}
           emails= members.all(:conditions => ['role_id IN (?)', roles]).collect{|m| m.user.mail}
@@ -72,7 +59,6 @@ module RedmineSympa
               <topic>Computing</topic>
               #{owners.join(' ')}
             </list>"
-          
         end
       end
     end

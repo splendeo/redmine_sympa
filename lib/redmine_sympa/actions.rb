@@ -28,24 +28,6 @@ module RedmineSympa
       RedmineSympa::SympaLogger.info "Destroying mailing list for project #{project.identifier}"
       execute_command("#{get_sympa_path} --close_list=#{project.identifier}@#{get_domain}")
     end
-
-    def self.subscribe(project, user)
-      RedmineSympa::SympaLogger.info "Subscribing user #{user.name} to list of project #{project.identifier}"
-     
-    end
-
-    def self.unsubscribe(project, user)
-      RedmineSympa::SympaLogger.info "Unsubscribing user #{user.name} from list of project #{project.identifier}"
-
-    end
-
-    def self.unsubscribe_from_all(user)
-      RedmineSympa::SympaLogger.info "Unsubscribing user #{user.name} from all his/her lists"
-    end
-
-    def self.reset_password(user, password)
-      RedmineSympa::SympaLogger.info "Resetting password of user #{user.name} to #{password}"
-    end
   end
 end
 
