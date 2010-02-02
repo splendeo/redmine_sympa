@@ -34,6 +34,14 @@ module RedmineSympa
           # detect the modules that are new, and create those only
           module_names.reject {|name| module_enabled?(name)}.each {|name| enabled_modules << EnabledModule.new(:name => name) }
         end
+        
+        def sympa_mailing_list_address
+          "#{identifier}@#{Setting.plugin_redmine_sympa['redmine_sympa_domain']}"
+        end
+        
+        def sympa_archive_url
+          "#{Setting.plugin_redmine_sympa['redmine_sympa_archive_url']}#{identifier}"
+        end
 
         def sympa_admin_emails
           roles = Setting.plugin_redmine_sympa['redmine_sympa_roles'].split(',').collect{|r| r.to_i}

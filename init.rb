@@ -1,20 +1,14 @@
 require 'redmine'
- 
-#require 'join_project/hooks/layout_hooks'
-#require 'join_project/hooks/project_hooks'
-#require 'join_project/hooks/my_hooks'
- 
+
+require 'redmine_sympa/hooks/project_hooks'
+
 require 'dispatcher'
 Dispatcher.to_prepare :redmine_sympa do
   require_dependency 'project'
   require_dependency 'enabled_module'
-  require_dependency 'user'
-  require_dependency 'member'
 
   Project.send(:include, RedmineSympa::Patches::ProjectPatch)
   EnabledModule.send(:include, RedmineSympa::Patches::EnabledModulePatch)
-  User.send(:include, RedmineSympa::Patches::UserPatch)
-  Member.send(:include, RedmineSympa::Patches::MemberPatch)
 
 end
 
@@ -29,6 +23,7 @@ Redmine::Plugin.register :redmine_sympa do
     :default => {
       'redmine_sympa_roles' => [],
       'redmine_sympa_domain' => 'yourdomain.com',
+      'redmine_sympa_archive_url' => 'http://localhost/wws/arc/',
       'redmine_sympa_path' => '/usr/lib/sympa/bin/sympa.pl',
       'redmine_sympa_log' => "#{Rails.root}/log/sympa.log"
     }

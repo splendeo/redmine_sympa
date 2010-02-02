@@ -1,4 +1,22 @@
-<% html_title "#{@project.name} mailing list" -%>
+<% html_title l(:redmine_sympa_mailing_list_page_title, @project.name) -%>
 <h2> <%=h @project.name %> mailing list </h2>
 
-This should show an iframe pointing to <b>/wws/arc/<%= @project.identifier %></b> or something similar.
+<p>
+<%=l(:redmine_sympa_mailing_list_page_intro, @project.sympa_mailing_list_address, @project.sympa_mailing_list_address) %>
+</p>
+
+<p>
+<%=l(:redmine_sympa_mailing_list_page_subscribe) %>
+</p>
+
+<p>
+<%=l(:redmine_sympa_mailing_list_page_unsubscribe) %>
+</p>
+
+<p>
+<%=l(:redmine_sympa_mailing_list_page_archive_text, @project.sympa_archive_url, @project.sympa_archive_url) %>
+</p>
+
+<p>
+<%= textilizable @project.sympa_info %>
+</p>
