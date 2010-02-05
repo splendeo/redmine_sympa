@@ -27,7 +27,7 @@ module RedmineSympa
     
     def self.destroy_list(project)
       RedmineSympa::SympaLogger.info "Destroying mailing list for project #{project.identifier}"
-      execute_command("#{get_sympa_path} --close_list=#{project.identifier}@#{get_domain}")
+      execute_command("#{get_sympa_path} --purge_list=#{project.identifier}@#{get_domain}")
     end
   end
 end
