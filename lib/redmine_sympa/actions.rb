@@ -5,7 +5,7 @@ module RedmineSympa
   module Actions
     def self.execute_command(command)
       RedmineSympa::SympaLogger.info("  executing #{command}")
-      system "#{command} >> #{RedmineSympa::SympaLogger.path} 2>&1 &"
+      system "sudo #{command} >> #{RedmineSympa::SympaLogger.path} 2>&1 &"
     end
 
     def self.get_sympa_path
