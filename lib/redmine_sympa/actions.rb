@@ -17,7 +17,8 @@ module RedmineSympa
     end
 
     def self.create_list(project)
-      temp_file = Tempfile.new('list')
+      temp_file = Tempfile.new('list', "#{Rails.root}/tmp")
+      File.chmod(0644, temp_file.path)
       temp_file.print(project.sympa_mailing_list_xml_def)
       temp_file.flush
       RedmineSympa::SympaLogger.info "Creating mailing list for project #{project.identifier}"

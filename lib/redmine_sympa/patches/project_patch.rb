@@ -55,8 +55,7 @@ module RedmineSympa
 
           owners = sympa_admin_emails.collect{|m| "<owner multiple='1'><email>#{m}</email></owner>"}
 
-          return "
-            <?xml version='1.0' ?>
+          return "<?xml version='1.0' ?>
             <list>
               <listname>#{identifier}</listname>
               <type>discussion_list</type>
