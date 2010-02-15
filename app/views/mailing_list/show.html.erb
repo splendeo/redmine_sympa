@@ -6,11 +6,15 @@
 </p>
 
 <p>
-<%=l(:redmine_sympa_mailing_list_page_subscribe) %>
+<%=l(:redmine_sympa_mailing_list_page_subscribe, @sympa_address, @sympa_address) %>
 </p>
 
 <p>
-<%=l(:redmine_sympa_mailing_list_page_unsubscribe) %>
+<%=l(:redmine_sympa_mailing_list_page_unsubscribe, @sympa_address, @sympa_address) %>
+</p>
+
+<p>
+<%=l(:redmine_sympa_mailing_list_page_subscription_web, @sympa_address, @sympa_address) %>
 </p>
 
 <p>

@@ -11,6 +11,10 @@ class MailingListController < ApplicationController
 
   def find_project
     # @project variable must be set before calling the authorize filter
+    
+    
+    @sympa_address = "sympa@#{Setting.plugin_redmine_sympa['redmine_sympa_domain']}"
+    
     @project = Project.find(params[:project_id])
   end
 
