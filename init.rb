@@ -24,8 +24,9 @@ Redmine::Plugin.register :redmine_sympa do
       'redmine_sympa_roles' => [],
       'redmine_sympa_domain' => 'yourdomain.com',
       'redmine_sympa_archive_url' => 'http://localhost/wws/arc/',
-      'redmine_sympa_path' => '/usr/lib/sympa/bin/sympa.pl',
-      'redmine_sympa_log' => "#{Rails.root}/log/sympa.log"
+      'redmine_sympa_path' => '/home/sympa/bin/sympa.pl',
+      'redmine_sympa_log' => "#{Rails.root}/log/sympa.log",
+      'redmine_sympa_list_type' => 'discussion_list'
     }
   })
   

@@ -25,6 +25,11 @@
   </p>
 
   <p>
+    <%= content_tag(:label, l(:redmine_sympa_setting_list_type)) %>
+    <%= text_field_tag("settings[redmine_sympa_list_type]", @settings['redmine_sympa_list_type'], :size=>60 ) %>
+  </p>
+
+  <p>
     <%= content_tag(:label, l(:redmine_sympa_setting_domain)) %>
     <%= text_field_tag("settings[redmine_sympa_domain]", @settings['redmine_sympa_domain'], :size=>60 ) %>
   </p>
@@ -43,4 +48,5 @@
     <%= content_tag(:label, l(:redmine_sympa_setting_log)) %>
     <%= text_field_tag("settings[redmine_sympa_log]", @settings['redmine_sympa_log'], :size=>60 ) %>
   </p>
+
 </fieldset>

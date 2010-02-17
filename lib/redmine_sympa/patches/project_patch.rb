@@ -54,11 +54,13 @@ module RedmineSympa
         def sympa_mailing_list_xml_def
 
           owners = sympa_admin_emails.collect{|m| "<owner multiple='1'><email>#{m}</email></owner>"}
+          
+          list_type = Setting.plugin_redmine_sympa['redmine_sympa_list_type']
 
           return "<?xml version='1.0' ?>
             <list>
               <listname>#{identifier}</listname>
-              <type>discussion_list</type>
+              <type>#{list_type}</type>
               <subject>#{name}</subject>
               <description>#{description}</description>
               <status>open</status>
