@@ -1,3 +1,26 @@
-= sympa
+= Redmine sympa plugin
 
-Description goes here
+== Installation
+
+    cd your/redmine/project
+    script/plugin install git://github.com/splendeo/redmine_sympa.git
+    rake db:migrate_plugins RAILS_ENV=production
+
+Then you must restart your app. This is Web-server dependant. In Apache, you would do:
+
+    touch tmp/restart.txt
+
+You should now be able to customize the plugin.
+
+* Open your to your redmine site on a browser window
+* Log-in as the administrator
+* Navigate to Administration / Plugins / Redmine Sympa plugin / Configure
+* Change settings on that plugin
+
+
+== Addional considerations
+
+Due to the way the plugin is built, the user running redmine must be able to perform a sudo without password.
+
+
+
