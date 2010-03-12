@@ -1,24 +1,24 @@
-<% html_title l(:redmine_sympa_mailing_list_page_title, @project.name) -%>
+<% html_title l(:redmine_sympa_mailing_list_page_title, :name => @project.name) -%>
 <h2> <%=h @project.name %> mailing list </h2>
 
 <p>
-<%=l(:redmine_sympa_mailing_list_page_intro, @project.sympa_mailing_list_address, @project.sympa_mailing_list_address) %>
+<%=l(:redmine_sympa_mailing_list_page_intro, :address => @project.sympa_mailing_list_address) %>
 </p>
 
 <p>
-<%=l(:redmine_sympa_mailing_list_page_subscribe, @sympa_address, @sympa_address, @project.identifier) %>
+<%=l(:redmine_sympa_mailing_list_page_subscribe, :address => @sympa_address, :list => @project.identifier) %>
 </p>
 
 <p>
-<%=l(:redmine_sympa_mailing_list_page_unsubscribe, @sympa_address, @sympa_address, @project.identifier) %>
+<%=l(:redmine_sympa_mailing_list_page_unsubscribe, :address => @sympa_address, :list => @project.identifier) %>
 </p>
 
 <p>
-<%=l(:redmine_sympa_mailing_list_page_subscription_web, @sympa_address, @sympa_address) %>
+<%=l(:redmine_sympa_mailing_list_page_subscription_web, :url => @project.sympa_archive_url) %>
 </p>
 
 <p>
-<%=l(:redmine_sympa_mailing_list_page_archive_text, @project.sympa_archive_url, @project.sympa_archive_url) %>
+<%=l(:redmine_sympa_mailing_list_page_archive_text, :url => @project.sympa_archive_url) %>
 </p>
 
 <p>
