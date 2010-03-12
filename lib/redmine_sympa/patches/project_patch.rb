@@ -44,7 +44,7 @@ module RedmineSympa
         end
 
         def sympa_admin_emails
-          roles = Setting.plugin_redmine_sympa['redmine_sympa_roles'].split(',').collect{|r| r.to_i}
+          roles = Setting.plugin_redmine_sympa['redmine_sympa_roles'].collect{|r| r.to_i}
           emails= members.all(:conditions => ['role_id IN (?)', roles]).collect{|m| m.user.mail}
           emails.push(User.find_by_admin(true).mail)
           return emails
