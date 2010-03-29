@@ -13,6 +13,7 @@ en:
   field_sympa_info: "Mailing list information"
   redmine_sympa_mailing_list_page_title: "{{name}} mailing list"
   redmine_sympa_mailing_list_page_intro: "This project's mailing list address is:"
+  redmine_sympa_mailing_list_page_admin_address: "The subscription / unsubscription email address is:"
   redmine_sympa_mailing_list_page_subscribe: "In order to subscribe, please send an empty email to that adress, with the header:"
   redmine_sympa_mailing_list_page_unsubscribe: "In order to unsubscribe, please send an empty email to that address containing the header:"
   redmine_sympa_mailing_list_page_subscription_web: "You may also use sympa's web interface for subscribing/unsubscribing."

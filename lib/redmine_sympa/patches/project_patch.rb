@@ -39,6 +39,10 @@ module RedmineSympa
           "#{identifier}@#{Setting.plugin_redmine_sympa['redmine_sympa_domain']}"
         end
         
+        def sympa_admin_address
+          "sympa@#{Setting.plugin_redmine_sympa['redmine_sympa_domain']}"
+        end
+        
         def sympa_archive_url
           "#{Setting.plugin_redmine_sympa['redmine_sympa_archive_url']}#{identifier}"
         end
