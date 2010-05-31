@@ -45,6 +45,11 @@
   </p>
 
   <p>
+    <%= content_tag(:label, l(:redmine_sympa_setting_info_url)) %>
+    <%= text_field_tag("settings[redmine_sympa_info_url]", @settings['redmine_sympa_info_url'], :size=>60 ) %>
+  </p>
+
+  <p>
     <%= content_tag(:label, l(:redmine_sympa_setting_log)) %>
     <%= text_field_tag("settings[redmine_sympa_log]", @settings['redmine_sympa_log'], :size=>60 ) %>
   </p>

@@ -46,6 +46,10 @@ module RedmineSympa
         def sympa_archive_url
           "#{Setting.plugin_redmine_sympa['redmine_sympa_archive_url']}#{identifier}"
         end
+        
+        def sympa_url
+          "#{Setting.plugin_redmine_sympa['redmine_sympa_info_url']}#{identifier}"
+        end
 
         def sympa_admin_emails
           roles = Setting.plugin_redmine_sympa['redmine_sympa_roles'].collect{|r| r.to_i}
