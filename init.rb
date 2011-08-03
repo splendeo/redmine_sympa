@@ -16,7 +16,7 @@ Redmine::Plugin.register :redmine_sympa do
   name 'Redmine Sympa plugin'
   author 'Enrique García Cota'
   description 'Integrates Redmine with Sympa mailing lists.'
-  version '0.0.3'
+  version '0.0.4'
 
   settings({
     :partial => 'settings/redmine_sympa',
