@@ -3,32 +3,28 @@ module RedmineSympa
     module ProjectPatch
       def self.included(base)
         base.send(:include, InstanceMethods)
-        base.extend(ClassMethods)
         base.class_eval do
           unloadable # Send unloadable so it will not be unloaded in development
         end
       end
 
-      module ClassMethods
-      end
-        
       module InstanceMethods
         def has_sympa_mailing_list?
           return self.module_enabled?(:sympa_mailing_list)
         end
-        
+
         def sympa_mailing_list_address
           "#{identifier}@#{Setting.plugin_redmine_sympa['redmine_sympa_domain']}"
         end
-        
+
         def sympa_admin_address
           "sympa@#{Setting.plugin_redmine_sympa['redmine_sympa_domain']}"
         end
-        
+
         def sympa_archive_url
           "#{Setting.plugin_redmine_sympa['redmine_sympa_archive_url']}#{identifier}"
         end
-        
+
         def sympa_url
           "#{Setting.plugin_redmine_sympa['redmine_sympa_info_url']}#{identifier}"
         end
@@ -39,12 +35,12 @@ module RedmineSympa
           emails.push(User.find_by_admin(true).mail)
           return emails
         end
-        
+
         # returns the xml needed for defining a mailing list
         def sympa_mailing_list_xml_def
 
           owners = sympa_admin_emails.collect{|m| "<owner multiple='1'><email>#{m}</email></owner>"}
-          
+
           list_type = Setting.plugin_redmine_sympa['redmine_sympa_list_type']
 
           return "<?xml version='1.0' ?>
