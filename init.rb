@@ -1,15 +1,17 @@
+# encoding: utf-8
 require 'redmine'
-
-require 'redmine_sympa/hooks/project_hooks'
-
 require 'dispatcher'
+
 Dispatcher.to_prepare :redmine_sympa do
   require_dependency 'project'
-  require_dependency 'enabled_module'
-
+  require_dependency 'redmine_sympa/patches/project_patch'
   Project.send(:include, RedmineSympa::Patches::ProjectPatch)
+
+  require_dependency 'enabled_module'
+  require_dependency 'redmine_sympa/patches/enabled_module_patch'
   EnabledModule.send(:include, RedmineSympa::Patches::EnabledModulePatch)
 
+  require_dependency 'redmine_sympa/hooks/project_hooks'
 end
 
 Redmine::Plugin.register :redmine_sympa do
