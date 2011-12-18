@@ -20,15 +20,15 @@ module RedmineSympa
 
         def sympa_enable_module
           self.reload
-          if(self.is_a_sympa_module?)
-            RedmineSympa::SympaLogger.info("EnabledModule: Project #{self.project.identifier} needs a new mailing list. We must registers all its users, too.")
+          if(project && self.is_a_sympa_module?)
+            RedmineSympa::SympaLogger.info("EnabledModule: Project #{project.identifier} needs a new mailing list. We must registers all its users, too.")
             RedmineSympa::Actions.create_list(project)
           end
         end
 
         def sympa_disable_module
-          if(self.is_a_sympa_module?)
-            RedmineSympa::SympaLogger.info("EnabledModule: Project #{self.project.identifier} doesn't need a mailing list any more")
+          if(project && self.is_a_sympa_module?)
+            RedmineSympa::SympaLogger.info("EnabledModule: Project #{project.identifier} doesn't need a mailing list any more")
             RedmineSympa::Actions.destroy_list(project)
           end
         end
