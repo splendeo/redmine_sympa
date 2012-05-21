@@ -29,17 +29,17 @@ module RedmineSympa
           "#{Setting.plugin_redmine_sympa['redmine_sympa_info_url']}#{identifier}"
         end
 
-        def sympa_admin_emails
+        def sympa_owner_emails
           roles = Setting.plugin_redmine_sympa['redmine_sympa_roles'].collect{|r| r.to_i}
           emails = members.all(:conditions => ['role_id IN (?)', roles]).collect{|m| m.user.mail}
-          emails += User.all(:conditions => {:admin => true}).collect(&:mail)
+          emails << User.current.mail
           return emails.uniq
         end
 
         # returns the xml needed for defining a mailing list
         def sympa_mailing_list_xml_def
 
-          owners = sympa_admin_emails.collect{|m| "<owner multiple='1'><email>#{m}</email></owner>"}
+          owners = sympa_owner_emails.collect{|m| "<owner multiple='1'><email>#{m}</email></owner>"}
 
           list_type = Setting.plugin_redmine_sympa['redmine_sympa_list_type']
 
