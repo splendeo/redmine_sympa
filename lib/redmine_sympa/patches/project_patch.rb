@@ -36,24 +36,50 @@ module RedmineSympa
           return emails.uniq
         end
 
+        def sympa_list_type
+          Setting.plugin_redmine_sympa['redmine_sympa_list_type']
+        end
+
         # returns the xml needed for defining a mailing list
         def sympa_mailing_list_xml_def
 
-          owners = sympa_owner_emails.collect{|m| "<owner multiple='1'><email>#{m}</email></owner>"}
+          # Template of the generated xml:
+          #
+          # <?xml version='1.0'?>
+          # <list>
+          #   <listname>The list name</listname>
+          #   <type>The list type</type>
+          #   <subject>The project name</subject>
+          #   <description>Project description</description>
+          #   <status>open</status>
+          #   <language>en_US</language>
+          #   <topic>Computing</topic>
+          #   <owner multiple="1">
+          #     <email>email1@example.com</email>
+          #   </owner>
+          #   <owner multiple="1">
+          #     <email>email2@example.com</email>
+          #   </owner>
+          # </list>
 
-          list_type = Setting.plugin_redmine_sympa['redmine_sympa_list_type']
+          xml = Builder::XmlMarkup.new(:indent => 2)
 
-          return "<?xml version='1.0' ?>
-            <list>
-              <listname>#{identifier}</listname>
-              <type>#{list_type}</type>
-              <subject>#{name}</subject>
-              <description>#{description}</description>
-              <status>open</status>
-              <language>en_US</language>
-              <topic>Computing</topic>
-              #{owners.join(' ')}
-            </list>"
+          xml.instruct! # adds <?xml version="1.0" encoding="UTF-8"> at the beginning
+          xml.list do
+            xml.listname identifier
+            xml.type sympa_list_type
+            xml.subject name
+            xml.description description
+            xml.status 'open'
+            xml.language 'en_US'
+            xml.topic 'Computing'
+            sympa_owner_emails.each do |email|
+              xml.owner('multiple' => '1') do
+                xml.email(email)
+              end
+            end
+          end
+
         end
       end
     end
