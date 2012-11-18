@@ -16,9 +16,11 @@ end
 
 Redmine::Plugin.register :redmine_sympa do
   name 'Redmine Sympa plugin'
-  author 'Enrique García Cota'
+  author 'Francisco de Juan, Enrique García Cota'
   description 'Integrates Redmine with Sympa mailing lists.'
-  version '0.0.4'
+  version '0.0.5'
+  url 'https://github.com/splendeo/redmine_sympa'
+  author_url 'http://www.splendeo.es'
 
   settings({
     :partial => 'settings/redmine_sympa',
